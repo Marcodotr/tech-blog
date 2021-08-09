@@ -72,14 +72,14 @@ router.get('/:id', async  (req, res) => {
 router.post('/', async (req, res) => {
   try 
   {
-    const currentUser = await user.findOne({
-      where: { username: req.body.username }
-    })
-    console.log(currentUser)
+    // const currentUser = await user.findOne({
+    //   where: { username: req.body.username }
+    // })
+    // console.log(currentUser)
     const newPost = await posts.create({
       title: req.body.title,
       body: req.body.body,
-      user_id: req.body.currentUser.id,
+      // user_id: req.body.currentUser.id,
     });
 
     res.status(200).json(newPost);

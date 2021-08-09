@@ -3,8 +3,8 @@ const postFormHandler = async (event) => {
 
     const title = document.querySelector('#title').value.trim();
     const body = document.querySelector('#body').value.trim();
-
-    if (title, body) {
+    console.log(title)
+    if (title && body) {
         const response = await fetch('/api/posts', {
             method: 'POST',
             body: JSON.stringify({ title, body }),
@@ -12,11 +12,12 @@ const postFormHandler = async (event) => {
         });
 
         if (response.ok) {
-            document.location.replace('/api/posts');
+            console.log("hello")
+            // document.location.replace('/api/posts');
         } else {
             alert('Failed to add Post')
         }
     }
 }
 
-document.querySelector('.addPost').addEventListener('submit', postFormHandler);
+document.querySelector('.addPost').addEventListener('click', postFormHandler);

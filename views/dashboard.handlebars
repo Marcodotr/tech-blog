@@ -4,26 +4,22 @@
             <h1 class="display-5 fw-bold">Add post</h1>
             <form class="form d-flex justify-content-between addPost">
                 <div class="form-floating col-2">
-                    <input type="text" name="postTitle" class="form-control" id="ptFirstName" placeholder="Title">
+                    <input type="text" name="title" class="form-control" id="title" placeholder="Title">
                     <label for="ptFi">Title</label>
                 </div>
-                <div class="form-floating col-2">
+                <div class="form-floating col-6">
                     <input type="text" name="body" class="form-control" id="body" placeholder="Body Of Post">
                     <label for="ptLastName">Body Of Post</label>
                 </div>
-                {{!-- <button class="col-1 btn btn-lg btn-primary" type="submit" id="addPT">Add Post</button> --}}
+                <button class="col-1 btn btn-lg btn-primary" id="addPT">Add Post</button> 
             </form>
         </div>
     </div>
 
-    <div class="row align-items-md-stretch">
-          <div class="col-md-6">
-            <div class="h-100 p-5 text-white bg-dark rounded-3">
-             {{#each posts as |post|}}
-            {{> blogpost}}
-            {{/each}}
-            </div>
-          </div>
+    {{#each post as |post|}}
+    {{> blogpost}}
+    {{/each}}
+
           <div class="col-md-6">
             <div class="h-100 p-5 bg-light border rounded-3">
               <h2>Add borders</h2>
@@ -33,3 +29,4 @@
           </div>
     </div>
 </section>
+<script src="/js/post.js"></script>
