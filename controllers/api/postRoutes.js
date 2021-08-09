@@ -23,6 +23,27 @@ router.get('/', async (req, res) => {
   }
 });
 
+router.get('/', async (req, res) => {
+  try {
+    const current = await user.findAll({
+      where: {username: req.body.username}
+    });
+
+    // console.log(allPatients)
+    const post = current.map((postList) => postList.get({ plain: true })
+    //.map new array patientlist is new variable // then gets a clean array
+    );
+    // console.log(patients)
+    // res.status(200).json(allPatients);
+    res.render('dashboard', {
+      loggedIn: req.session.loggedIn,
+      post,
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 router.get('/:id', async  (req, res) => {
   try {
     const thisPost = await posts.findByPk(req.params.id);
@@ -51,10 +72,14 @@ router.get('/:id', async  (req, res) => {
 router.post('/', async (req, res) => {
   try 
   {
+    const currentUser = await user.findOne({
+      where: { username: req.body.username }
+    })
+    console.log(currentUser)
     const newPost = await posts.create({
       title: req.body.title,
       body: req.body.body,
-      user_id: req.body.user_id,
+      user_id: req.body.currentUser.id,
     });
 
     res.status(200).json(newPost);
