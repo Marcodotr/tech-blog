@@ -2,9 +2,9 @@ const router = require('express').Router();
 const { User } = require('../models');
 const withAuth = require('../utils/auth'); //redirect to login if not logged in
 
-router.get('/', withAuth, async (req, res) => {
+router.get('/', async (req, res) => {
   //router.get('/', withAuth, async (req, res) => {
-  res.render('poop', {
+  res.render('homescreen', {
     loggedIn: req.session.loggedIn,
   });
 });
@@ -27,13 +27,13 @@ router.get('/signup', (req, res) => {
   res.render('signup');
 });
 
-router.get('/patientsPage', withAuth, (req, res) => {
+router.get('/patientsPage', (req, res) => {
   res.render('patientsPage', {
     loggedIn: req.session.loggedIn,
   });
 });
 
-router.get('/allOrders', withAuth, (req, res) => {
+router.get('/allOrders', (req, res) => {
   res.render('allOrders', {
     loggedIn: req.session.loggedIn,
   });

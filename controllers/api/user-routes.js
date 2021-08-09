@@ -5,8 +5,11 @@ const { user } = require('../../models');
 router.post('/', async (req, res) => {
   try {
     const dbUserData = await user.create({
-      email: req.body.email,
+      username: req.body.username,
       password: req.body.password,
+      first_name: req.body.first_name,
+      last_name: req.body.last_name,
+      individualHooks: true
     });
 
     req.session.save(() => {
@@ -24,7 +27,7 @@ router.post('/signup', async (req, res) => {
   try {
     const dbUserData = await user.findOne({
       where: {
-        email: req.body.email,
+        username: req.body.username,
       },
       
     });
@@ -32,7 +35,7 @@ router.post('/signup', async (req, res) => {
     if (!dbUserData) {
       res
         .status(400)
-        .json({ message: 'Incorrect email or password. Please try again!' });
+        .json({ message: 'Incorrect username or password. Please try again!' });
       return;
     }
 
@@ -41,7 +44,7 @@ router.post('/signup', async (req, res) => {
     if (!validPassword) {
       res
         .status(400)
-        .json({ message: 'Incorrect email or password. Please try again!' });
+        .json({ message: 'Incorrect username or password. Please try again!' });
       return;
     }
 
@@ -76,7 +79,7 @@ router.post('/login', async (req, res) => {
   try {
     const dbUserData = await user.findOne({
       where: {
-        email: req.body.email,
+        username: req.body.username,
       },
       
     });
@@ -84,7 +87,7 @@ router.post('/login', async (req, res) => {
     if (!dbUserData) {
       res
         .status(400)
-        .json({ message: 'Incorrect email or password. Please try again!' });
+        .json({ message: 'Incorrect username or password. Please try again!' });
       return;
     }
 
@@ -93,7 +96,7 @@ router.post('/login', async (req, res) => {
     if (!validPassword) {
       res
         .status(400)
-        .json({ message: 'Incorrect email or password. Please try again!' });
+        .json({ message: 'Incorrect username or password. Please try again!' });
       return;
     }
 
