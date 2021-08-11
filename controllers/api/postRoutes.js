@@ -23,14 +23,14 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.get('/', async (req, res) => {
+router.get('/userPosts/:id/', async (req, res) => {
   try {
-    const current = await user.findAll({
-      where: {username: req.body.username}
+    const userPosts = await user.findAll({
+      where: {'user_id': req.perams.id }
     });
 
     // console.log(allPatients)
-    const post = current.map((postList) => postList.get({ plain: true })
+    const post = userPosts.map((postList) => postList.get({ plain: true })
     //.map new array patientlist is new variable // then gets a clean array
     );
     // console.log(patients)
