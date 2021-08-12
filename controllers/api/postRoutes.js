@@ -14,7 +14,7 @@ router.get('/', async (req, res) => {
     );
     // console.log(patients)
     // res.status(200).json(allPatients);
-    res.render('dashboard', {
+    res.render('homescreen', {
       loggedIn: req.session.loggedIn,
       post,
     });
@@ -26,15 +26,24 @@ router.get('/', async (req, res) => {
 router.get('/userPosts/:id/', async (req, res) => {
   try {
     const userPosts = await posts.findAll({
-      where: {'user_id': req.perams.id }
+      where: { 'user_id': req.params.id }
     });
+    console.log(userPosts)
+    
+    if(!userPosts) {
+      res.status(404).json({ message: 'no posts with this id'})
+      return;
+    }
 
     // console.log(allPatients)
-    const post = userPosts.map((postList) => postList.get({ plain: true })
-    //.map new array patientlist is new variable // then gets a clean array
-    );
-    // console.log(patients)
-    // res.status(200).json(allPatients);
+    const post = userPosts.map((postList) => postList.get({ plain: true }));
+
+    const currentUser = await user.findByPk(req.params.id)
+
+    const thisUser = currentUser.get({ plain:true })
+
+    console.log(post)
+
     res.render('dashboard', {
       loggedIn: req.session.loggedIn,
       thisUser,
@@ -59,7 +68,9 @@ router.get('/:id', async  (req, res) => {
     console.log(currentPost)
 
     // res.status(200).json(thisPatient);
-    res.render('singlePost', {
+    res.
+    json(currentPost)
+    render('singlePost', {
       loggedIn: req.session.loggedIn,
       currentPost
     })
@@ -78,6 +89,7 @@ router.post('/', async (req, res) => {
     // })
     // console.log(currentUser)
     const newPost = await posts.create({
+      user_id: req.body.user_id,
       title: req.body.title,
       body: req.body.body,
       // user_id: req.body.currentUser.id,

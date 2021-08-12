@@ -35,10 +35,5 @@ router.get('/dashboard', withAuth, (req, res) => {
   });
 });
 
-router.get('/allOrders', (req, res) => {
-  res.render('allOrders', {
-    loggedIn: req.session.loggedIn,
-  });
-});
 
 module.exports = router;
