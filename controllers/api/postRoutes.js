@@ -25,7 +25,7 @@ router.get('/', async (req, res) => {
 
 router.get('/userPosts/:id/', async (req, res) => {
   try {
-    const userPosts = await user.findAll({
+    const userPosts = await posts.findAll({
       where: {'user_id': req.perams.id }
     });
 
@@ -37,6 +37,7 @@ router.get('/userPosts/:id/', async (req, res) => {
     // res.status(200).json(allPatients);
     res.render('dashboard', {
       loggedIn: req.session.loggedIn,
+      thisUser,
       post,
     });
   } catch (err) {

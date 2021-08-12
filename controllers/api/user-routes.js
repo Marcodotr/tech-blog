@@ -101,8 +101,11 @@ router.post('/login', async (req, res) => {
       return;
     }
 
+    const thisUser = dbUserData.get({ plain:true })
+
     req.session.save(() => {
       req.session.loggedIn = true;
+      req.session.thisUser = thisUser
 
       res
         .status(200)
