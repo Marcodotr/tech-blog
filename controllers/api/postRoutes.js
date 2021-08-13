@@ -8,8 +8,9 @@ router.get('/', async (req, res) => {
   try {
 
     const thisUser = await user.findAll({
-      where: { 'id': req.session.loggedIn }
+      where: req.session.loggedIn
     })
+
 
     const allPosts = await posts.findAll({});
 
@@ -45,7 +46,7 @@ router.get('/userPosts/:id/', async (req, res) => {
     const post = userPosts.map((postList) => postList.get({ plain: true }));
 
     const thisUser = await user.findAll({
-      where: { 'id': req.session.loggedIn }
+      where: req.session.loggedIn 
     })
 
     console.log(post)
