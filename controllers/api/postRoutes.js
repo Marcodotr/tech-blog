@@ -6,6 +6,11 @@ const withAuth = require('../../utils/auth')
 
 router.get('/', async (req, res) => {
   try {
+
+    const thisUser = await user.findAll({
+      where: { 'id': req.session.loggedIn }
+    })
+
     const allPosts = await posts.findAll({});
 
     // console.log(allPatients)
@@ -16,6 +21,7 @@ router.get('/', async (req, res) => {
     // res.status(200).json(allPatients);
     res.render('homescreen', {
       loggedIn: req.session.loggedIn,
+      thisUser,
       post,
     });
   } catch (err) {
@@ -38,9 +44,9 @@ router.get('/userPosts/:id/', async (req, res) => {
     // console.log(allPatients)
     const post = userPosts.map((postList) => postList.get({ plain: true }));
 
-    const currentUser = await user.findByPk(req.params.id)
-
-    const thisUser = currentUser.get({ plain:true })
+    const thisUser = await user.findAll({
+      where: { 'id': req.session.loggedIn }
+    })
 
     console.log(post)
 
